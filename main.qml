@@ -16,17 +16,20 @@ ApplicationWindow {
     visible: true
     title: qsTr("Ciftlik Otomasyon")
 
-    property double defaultSpacing: 200//Screen.desktopAvailableWidth/10
+    property double defaultSpacing: screen.desktopAvailableWidth/40
     property double defaultWidth: mainWindow.width
     property double defaultHeight: mainWindow.height
-    property int    defaultWidthSplit: 6
-    property int    defaultHeightSplit: 6
-    property int    defaultBoxNumber: 4
-    property var    boxNames: ["Anomaliler","Hayvan Sorgulama","Yem Yeme Süresi","Stok Takip"]
+
     property int    defaultFontPixelWidth: 20
     property int    defaultFontPixelHeight: 10
     property int    largeFontPointSize: 30
     property int    toolbarHeight: 30*3
+
+    property int    defaultWidthSplit: 6
+    property int    defaultHeightSplit: 6
+    property int    defaultBoxNumber: 4
+    property var    boxNames: ["Anomaliler","Hayvan Sorgulama","Yem Yeme Süresi","Stok Takip"]
+
 
     property bool   isAndroid :ScreenToolsController.isAndroid
     property bool   isWindows :ScreenToolsController.isWindows

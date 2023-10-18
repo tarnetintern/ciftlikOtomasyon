@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/hayvan/inek">
+        <file>3dmodels/cow.obj</file>
+        <file>3dmodels/toyplane.obj</file>
+    </qresource>
+</RCC>
