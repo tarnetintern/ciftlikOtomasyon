@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+		<file alias="ciftlikIcon">images/ciftlikIcon.png</file>
+		<file alias="ciftlikIcon50px">images/ciftlikIcon50px.png</file>
+		<file alias="traktor">images/traktor.png</file>
+		<file alias="traktor50px">images/traktor50px.png</file>
+		<file alias="ciftlikSvg">images/ciftlikSvg.svg</file>
+		<file alias="inek">images/inek.png</file>
+		<file alias="yem">images/yem.png</file>
+		<file alias="stokTakip">images/stokTakip.png</file>
+		<file alias="uyari">images/uyari.png</file>
+    </qresource>
+</RCC>

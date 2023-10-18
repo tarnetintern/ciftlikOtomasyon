@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+		<file>pages/anomaliler.qml</file>
+		<file>pages/hayvanSorgulama.qml</file>
+		<file>pages/stokTakip.qml</file>
+		<file>pages/yemYemeSuresi.qml</file>
+    </qresource>
+</RCC>
