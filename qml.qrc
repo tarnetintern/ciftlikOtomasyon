@@ -5,5 +5,6 @@
         <file>pages/hayvanSorgulama.qml</file>
         <file>pages/stokTakip.qml</file>
         <file>pages/yemYemeSuresi.qml</file>
+        <file>pages/hayvanEkleme.qml</file>
     </qresource>
 </RCC>

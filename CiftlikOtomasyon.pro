@@ -1,7 +1,7 @@
 QT += quick\
       widgets \
 
-
+QT += sql
 #QT += 3dcore
 
 
@@ -33,12 +33,14 @@ QT += quick\
 SOURCES += \
         main.cpp\
         screenTools/ScreenToolsController.cc\
-        src/COtomasyonApplication.cc
+        src/COtomasyonApplication.cc\
+        src/dataBase.cc
 
 
 HEADERS +=\
         screenTools/ScreenToolsController.h\
-        src/COtomasyonApplication.h
+        src/COtomasyonApplication.h\
+        src/dataBase.h
 
 RESOURCES +=\
         models.qrc \

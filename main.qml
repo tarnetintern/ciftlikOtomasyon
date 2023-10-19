@@ -27,8 +27,11 @@ ApplicationWindow {
 
     property int    defaultWidthSplit: 6
     property int    defaultHeightSplit: 6
-    property int    defaultBoxNumber: 4
-    property var    boxNames: ["Anomaliler","Hayvan Sorgulama","Yem Yeme Süresi","Stok Takip"]
+    property int    defaultBoxNumber: 5
+    property var    boxNames:
+        ["Anomaliler","Hayvan Sorgulama",
+        "Yem Yeme Süresi","Stok Takip",
+        "Hayvan Ekleme"]
 
 
     property bool   isAndroid :ScreenToolsController.isAndroid
@@ -55,6 +58,9 @@ ApplicationWindow {
         else if(whichPage==="Stok Takip"){
             showTool(qsTr("Stok Takip"), "pages/stokTakip.qml", "stokTakip")
         }
+        else if(whichPage==="Hayvan Ekleme"){
+            showTool(qsTr("Hayvan Ekleme"), "pages/hayvanEkleme.qml", "inek")
+        }
 
     }
 
@@ -68,7 +74,7 @@ ApplicationWindow {
             x:defaultFontPixelWidth
 
             GridLayout{
-                columns: defaultWidthSplit
+                columns: 4
                 columnSpacing: defaultSpacing
 
                 Repeater{

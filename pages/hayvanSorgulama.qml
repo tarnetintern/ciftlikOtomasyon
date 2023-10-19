@@ -107,7 +107,7 @@ Item{
     ListModel {
         id:hayvanlarmodeli
         Component.onCompleted: {
-            for (var i = 0; i < 13; ++i) {
+            for (var i = 0; i < 130; ++i) {
                 append({value: i.toString(),visibleV:false});
             }
         }
@@ -158,7 +158,7 @@ Item{
                     radius: 50
                     //                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    color: "#5C5C5C"
+                    color: "#7e1616"
                     border.color: Qt.darker(color)
                     visible: {
                         console.log("visible rect: "+visibleV)
@@ -166,7 +166,7 @@ Item{
 
                     Text {
                         anchors.centerIn: parent
-                        text: value
+                        text: "Kupe No: "+value
                     }
                 }
             }
