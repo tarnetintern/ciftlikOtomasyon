@@ -26,7 +26,7 @@ Item{
         y: 0
         width: parent.width
         height: parent.height
-        color: "red"
+        color: "grey"
 
 
         Image {
@@ -54,7 +54,9 @@ Item{
         }
 
         Repeater{
+            id:kupeNoRepeater
             model:11
+            anchors.top: kupeNo.bottom
 
             delegate: Button{
                 id:buttonKu
@@ -79,30 +81,64 @@ Item{
 
     }
     ListModel {
-        id:contactModel
-        ListElement {
-            name: "Bill Smith"
-            number: "555 3264"
-        }
-        ListElement {
-            name: "John Brown"
-            number: "555 8426"
-        }
-        ListElement {
-            name: "Sam Wise"
-            number: "555 0473"
+        id:hayvanlarmodeli
+        Component.onCompleted: {
+            for (var i = 0; i < 13; ++i) {
+                append({value: "kupe no:  "+i});
+            }
         }
     }
 
-    ListView {
-        x: 252
-        y: 166
+    Rectangle {
 
-        width: 371; height: 298
+        id: rootw
+        width: kupeNo.width
+        height: kupeNo.height*10
+        color: "#403F41"
+        y:200
+        x:200
 
-        model: contactModel
-        delegate: Text {
-            text: name + ": " + number
+
+        Label {
+            id:aktifgorevtext
+            text:       {qsTr("Hayvanlar")}
+            x:(parent.width/100)*17
+            y:(parent.height/100)*5
+        }
+        ListView {
+            x:(parent.width/100)*3
+            y:(parent.height/100)*15
+            id: listView
+            width: parent.width-(parent.width/100)*3
+            height: rootw.height-(rootw.height/2)
+            spacing: 15
+            clip : false
+
+
+            model: hayvanlarmodeli
+
+            delegate: Item {
+                id: delegateItem
+                width: listView.width
+                height: 50
+
+                Rectangle {
+                    id: dragRect
+                    width: listView.width/3
+                    height: 30
+                    radius: 50
+                    //                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "#5C5C5C"
+                    border.color: Qt.darker(color)
+
+                    Text {
+                        anchors.centerIn: parent
+                        text: value
+                    }
+                }
+            }
+
         }
     }
 
