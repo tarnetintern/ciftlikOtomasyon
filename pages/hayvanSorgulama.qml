@@ -49,6 +49,14 @@ Item{
             width: parent.width-hayvan.width-30
             height: 41
 
+            onTextChanged: {
+                filterModel();
+
+
+
+
+            }
+
 
 
         }
@@ -80,13 +88,34 @@ Item{
 
 
     }
+
+
+    function filterModel() {
+        hayvanlarmodeliDegisen.clear()
+        for (var i = 0; i < hayvanlarmodeli.count; i++) {
+            if (hayvanlarmodeli.get(i).value.includes((kupeNo.text))) {
+                hayvanlarmodeli.get(i).visibleV = true;
+                hayvanlarmodeliDegisen.append(hayvanlarmodeli.get(i))
+            } else {
+                hayvanlarmodeli.get(i).visibleV = false;
+            }
+        }
+
+    }
+
+
     ListModel {
         id:hayvanlarmodeli
         Component.onCompleted: {
             for (var i = 0; i < 13; ++i) {
-                append({value: "kupe no:  "+i});
+                append({value: i.toString(),visibleV:false});
             }
         }
+    }
+
+    ListModel {
+        id:hayvanlarmodeliDegisen
+
     }
 
     Rectangle {
@@ -105,6 +134,7 @@ Item{
             x:(parent.width/100)*17
             y:(parent.height/100)*5
         }
+
         ListView {
             x:(parent.width/100)*3
             y:(parent.height/100)*15
@@ -114,8 +144,7 @@ Item{
             spacing: 15
             clip : false
 
-
-            model: hayvanlarmodeli
+            model: hayvanlarmodeliDegisen
 
             delegate: Item {
                 id: delegateItem
@@ -131,6 +160,9 @@ Item{
                     anchors.verticalCenter: parent.verticalCenter
                     color: "#5C5C5C"
                     border.color: Qt.darker(color)
+                    visible: {
+                        console.log("visible rect: "+visibleV)
+                        return visibleV}
 
                     Text {
                         anchors.centerIn: parent
@@ -141,8 +173,6 @@ Item{
 
         }
     }
-
-
 
 }
 
