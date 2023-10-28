@@ -15,25 +15,12 @@ static QObject* screenToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
     return screenToolsController;
 }
 
-bool sqlOlustur(){
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    bool ok=false;
-    if(!db.isOpen()){
-        db.setHostName("local");
-        db.setDatabaseName("benimCiftligim");
-        db.setUserName("batuhan");
-        db.setPassword("admin");
-        ok = db.open();
-    }
-    else{
-        ok=true;
-    }
-
-    return ok;
-
+static QObject* databaseToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
+{
+    DataBase* dataBase = new DataBase;
+    return dataBase;
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -45,27 +32,12 @@ int main(int argc, char *argv[])
     COtomasyonApplication app(argc, argv);
     app.initCommon(app);
 
-    DataBase * dataBase= new DataBase;
-
-
-    qDebug()<<"sql server açıldı:"<<dataBase->veriTabaniniOlustur("local","benimCiftligim",
-                                                                  "batuhan","admin");
-
-    qDebug()<<"Tablolar oluştu:"<<dataBase->tablolariOlustur();
-
     QQmlApplicationEngine engine;
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 
     qmlRegisterSingletonType<ScreenToolsController> ("COtomasyon.ScreenToolsController",    1, 0, "ScreenToolsController",  screenToolsControllerSingletonFactory);
-
-
-
-
-
-
-
-
+    qmlRegisterSingletonType<DataBase> ("COtomasyon.DataBase",    1, 0, "DataBase",  databaseToolsControllerSingletonFactory);
 
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

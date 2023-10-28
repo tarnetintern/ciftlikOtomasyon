@@ -25,10 +25,21 @@ public:
     ~DataBase();
 
 
-    bool veriTabaniniOlustur(QString setHostName,QString setDatabaseName,
+    Q_INVOKABLE bool veriTabaniniOlustur(QString setHostName,QString setDatabaseName,
                              QString setUserName,QString setPassword);
-    bool tablolariOlustur();
-    QSqlDatabase db;
+    Q_INVOKABLE bool tablolariOlustur();
+
+
+    Q_INVOKABLE bool veriTabaniKayitEkle(QString hayvanTuru,QString hayvanAdi,
+                                         QString kupeNo,QString dogumTarihi,
+                                         QString olumTarihi,int yavruSayisi,
+                                         QString anneKupeNo,QString babaKupeNo);
+
+    Q_INVOKABLE bool veriTabaniKayitSil();
+
+    QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE");
+
+
 
 
 
