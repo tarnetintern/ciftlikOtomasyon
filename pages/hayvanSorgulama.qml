@@ -8,6 +8,7 @@ import QtQuick.Dialogs  1.3
 
 import COtomasyon.ScreenToolsController 1.0
 
+import COtomasyon.DataBase 1.0
 
 Item{
     id:hayvanSorgulamaRoot
@@ -20,6 +21,8 @@ Item{
     property int    defaultFontPixelWidth: 20
     property int    defaultFontPixelHeight: 10
     property int    largeFontPointSize: 30
+
+    property var kayitliHayvanlarListesi
 
     Rectangle{
         x: 0
@@ -107,8 +110,9 @@ Item{
     ListModel {
         id:hayvanlarmodeli
         Component.onCompleted: {
-            for (var i = 0; i < 130; ++i) {
-                append({value: i.toString(),visibleV:false});
+            kayitliHayvanlarListesi=DataBase.veriTabaniSorgulamaYap("")
+            for (var i = 0; i < kayitliHayvanlarListesi.length; ++i) {
+                append({value: kayitliHayvanlarListesi[i],visibleV:false});
             }
         }
     }
@@ -172,6 +176,14 @@ Item{
             }
 
         }
+    }
+
+    Component.onCompleted: {
+        console.log("yuklendi")
+        console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","deneme3","batuhan","admin"))
+        console.log("Tabloları olusturma: "+DataBase.tablolariOlustur())
+
+
     }
 
 }

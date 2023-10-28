@@ -112,4 +112,44 @@ bool DataBase::veriTabaniKayitSil()
     return true;
 }
 
+QList<QString> DataBase::veriTabaniSorgulamaYap(QString kupeNo)
+{
+    QList<QString> kupelerListesi;
+    //eğer gelen sorgu bos olursa hepsini listelerim bos degilse kupe no uzerinden veri aktarımı yaparım :)
+    qDebug() <<"sorgulanan kupe no: "<<kupeNo;
+
+    if (db.open()) {
+        QSqlQuery query;
+        query.prepare("SELECT * FROM hayvanlar"); // "hayvanlar" tablosundaki tüm verileri al
+
+        if (query.exec()) {
+            while (query.next()) {
+                // Her bir satırı işleyin ve istediğiniz verilere erişin
+                QString hayvanTuru = query.value(0).toString();
+                QString hayvanAdi = query.value(1).toString();
+                QString kupeNo = query.value(2).toString();
+                // Diğer sütunları benzer şekilde alabilirsiniz
+
+                // Alınan verileri kullanabilir veya görüntüleyebilirsiniz
+                qDebug() << "Hayvan Türü: " << hayvanTuru;
+                qDebug() << "Hayvan Adı: " << hayvanAdi;
+                qDebug() << "Kupe No: " << kupeNo;
+                // Diğer verileri de görüntüleyebilirsiniz
+
+                kupelerListesi.append(kupeNo);
+            }
+        } else {
+            qDebug() << "Sorgu çalıştırma hatası: " << query.lastError().text();
+        }
+
+        // Veritabanı bağlantısını kapatmayı unutmayın
+        //db.close();
+    } else {
+        qDebug() << "Veritabanı bağlantısı başarısız oldu.";
+    }
+
+    return kupelerListesi;
+
+}
+
 
