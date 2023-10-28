@@ -83,14 +83,14 @@ Item {
 
 
             onTextChanged:{
-                if(olum_tarihiV_sayi>length){
+                if(dogum_tarihiV_sayi>length){
                     text=""
-                    olum_tarihiV_sayi=0
+                    dogum_tarihiV_sayi=0
                 }
                 else if((length===2) || (length===5) ){
                     text=text+"-"
                 }
-                olum_tarihiV_sayi=length
+                dogum_tarihiV_sayi=length
             }
 
 

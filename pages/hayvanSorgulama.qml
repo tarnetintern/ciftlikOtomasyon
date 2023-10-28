@@ -27,6 +27,10 @@ Item{
 
     property bool ilkAcilisVisible: false
     property bool veriEklemeBasariliMi: false
+    property bool duzenlemeAktifMi: false
+
+    property int olum_tarihiV_sayi: 0
+    property int dogum_tarihiV_sayi: 0
 
 
 
@@ -108,6 +112,7 @@ Item{
                     ComboBox{
                         id:hayvan_turuV
                         model: ["İnek", "Koyun","..."]
+                        enabled: duzenlemeAktifMi
 
                     }
 
@@ -120,6 +125,7 @@ Item{
 
                     TextField{
                         id:hayvan_adiV
+                        enabled: duzenlemeAktifMi
 
 
                     }
@@ -133,6 +139,7 @@ Item{
 
                     TextField{
                         id:kupe_noV
+                        enabled: duzenlemeAktifMi
 
 
                     }
@@ -146,18 +153,19 @@ Item{
 
                     TextField{
                         id:dogum_tarihiV
+                        enabled: duzenlemeAktifMi
 
 
 
                         onTextChanged:{
-                            if(olum_tarihiV_sayi>length){
+                            if(dogum_tarihiV_sayi>length){
                                 text=""
-                                olum_tarihiV_sayi=0
+                                dogum_tarihiV_sayi=0
                             }
                             else if((length===2) || (length===5) ){
                                 text=text+"-"
                             }
-                            olum_tarihiV_sayi=length
+                            dogum_tarihiV_sayi=length
                         }
 
 
@@ -172,6 +180,7 @@ Item{
 
                     TextField{
                         id:olum_tarihiV
+                        enabled: duzenlemeAktifMi
 
 
                         onTextChanged:{
@@ -197,6 +206,7 @@ Item{
 
                     TextField{
                         id:yavru_sayisiV
+                        enabled: duzenlemeAktifMi
 
 
                     }
@@ -210,6 +220,7 @@ Item{
 
                     TextField{
                         id:anne_kupe_noV
+                        enabled: duzenlemeAktifMi
 
 
                     }
@@ -223,15 +234,24 @@ Item{
 
                     TextField{
                         id:baba_kupe_noV
+                        enabled: duzenlemeAktifMi
 
 
+                    }
+                    Button{
+                        id:duzenlemeButton
+                        text:"Düzenle"
+                        enabled: hayvan_adiV.length>0
+
+                        onClicked: duzenlemeAktifMi=true
                     }
 
                     Button{
                         id:eklemeButton
                         text: "Ekle"
                         Layout.fillWidth:true
-                        visible: ilkAcilisVisible
+                        visible: duzenlemeAktifMi
+                        enabled: duzenlemeAktifMi
 
                         onClicked: {
                             veriEklemeBasariliMi=DataBase.veriTabaniKayitEkle(hayvan_turuV.currentText,
