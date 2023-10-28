@@ -112,43 +112,67 @@ bool DataBase::veriTabaniKayitSil()
     return true;
 }
 
-QList<QString> DataBase::veriTabaniSorgulamaYap(QString kupeNo)
+QVariantList DataBase::veriTabaniSorgulamaYap(QString kupeNo)
 {
+    QVariantList variantList;
+    //hayvan goruntuleme qml sayfasi eklenmesi gerekmektedir birazdan ekleme yapacağim
     QList<QString> kupelerListesi;
     //eğer gelen sorgu bos olursa hepsini listelerim bos degilse kupe no uzerinden veri aktarımı yaparım :)
-    qDebug() <<"sorgulanan kupe no: "<<kupeNo;
 
-    if (db.open()) {
-        QSqlQuery query;
-        query.prepare("SELECT * FROM hayvanlar"); // "hayvanlar" tablosundaki tüm verileri al
 
-        if (query.exec()) {
-            while (query.next()) {
-                // Her bir satırı işleyin ve istediğiniz verilere erişin
-                QString hayvanTuru = query.value(0).toString();
-                QString hayvanAdi = query.value(1).toString();
-                QString kupeNo = query.value(2).toString();
-                // Diğer sütunları benzer şekilde alabilirsiniz
+    if(kupeNo.isEmpty()){
+        if (db.open()) {
+            QSqlQuery query;
+            query.prepare("SELECT * FROM hayvanlar"); // "hayvanlar" tablosundaki tüm verileri al
 
-                // Alınan verileri kullanabilir veya görüntüleyebilirsiniz
-                qDebug() << "Hayvan Türü: " << hayvanTuru;
-                qDebug() << "Hayvan Adı: " << hayvanAdi;
-                qDebug() << "Kupe No: " << kupeNo;
-                // Diğer verileri de görüntüleyebilirsiniz
+            if (query.exec()) {
+                while (query.next()) {
 
-                kupelerListesi.append(kupeNo);
+                    QString kupeNo = query.value(2).toString();
+                    kupelerListesi.append(kupeNo);
+                }
+            } else {
+                qDebug() << "Sorgu çalıştırma hatası: " << query.lastError().text();
             }
+
         } else {
-            qDebug() << "Sorgu çalıştırma hatası: " << query.lastError().text();
+            qDebug() << "Veritabanı bağlantısı başarısız oldu.";
         }
 
-        // Veritabanı bağlantısını kapatmayı unutmayın
-        //db.close();
-    } else {
-        qDebug() << "Veritabanı bağlantısı başarısız oldu.";
+        QVariant variant = QVariant::fromValue(kupelerListesi);
+        variantList.append(variant);
+
+
+    }else{
+        qDebug() <<"sorgulanan kupe no: "<<kupeNo;
+
+        if (db.open()) {
+            QSqlQuery query;
+
+            query.prepare("SELECT * FROM hayvanlar WHERE kupe_no = :kupeNo");
+            query.bindValue(":kupeNo", kupeNo);
+
+            if (query.exec()) {
+                while (query.next()) {
+                    QVariant variant;
+
+                    for (int i = 0; i < 8; i++) {
+                        variant = QVariant::fromValue(query.value(i).toString());
+                        variantList.append(variant);
+                    }
+                }
+            } else {
+                qDebug() << "Sorgu çalıştırma hatası: " << query.lastError().text();
+            }
+
+            // Veritabanı bağlantısını kapatmayı unutmayın
+            //db.close();
+        } else {
+            qDebug() << "Veritabanı bağlantısı başarısız oldu.";
+        }
     }
 
-    return kupelerListesi;
+    return variantList;
 
 }
 

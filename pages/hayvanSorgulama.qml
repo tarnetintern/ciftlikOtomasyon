@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 
 
 import QtQuick.Controls 2.4
-import QtQuick.Dialogs  1.3
+
 
 import COtomasyon.ScreenToolsController 1.0
 
@@ -23,8 +23,15 @@ Item{
     property int    largeFontPointSize: 30
 
     property var kayitliHayvanlarListesi
+    property var hayvanGoruntulemeListesi
+
+    property bool ilkAcilisVisible: false
+    property bool veriEklemeBasariliMi: false
+
+
 
     Rectangle{
+        id: rectangle
         x: 0
         y: 0
         width: parent.width
@@ -32,35 +39,19 @@ Item{
         color: "grey"
 
 
-        Image {
-            id: hayvan
-            y: 166
-            source: hayvanResimleriPath
-            anchors.leftMargin: 8
-            width: Screen.desktopAvailableWidth/7
-            height: Screen.desktopAvailableHeight/7
-            anchors.centerIn: parent.Center
-            anchors.left: parent.left
-        }
 
         TextField{
             id:kupeNo
-            anchors.left: hayvan.right
-            anchors.leftMargin: -1
-            x:400
-            y: 69
-            width: parent.width-hayvan.width-30
+
+            anchors.leftMargin: 5
+
+            width: parent.width/4
             height: 41
 
             onTextChanged: {
                 filterModel();
 
-
-
-
             }
-
-
 
         }
 
@@ -68,14 +59,16 @@ Item{
             id:kupeNoRepeater
             model:11
             anchors.top: kupeNo.bottom
+            Layout.maximumWidth: kupeNo.width
 
             delegate: Button{
                 id:buttonKu
                 anchors.top: kupeNo.bottom
+                anchors.topMargin: 10
                 text: index !== 10 ? index:"sil"
-                width: 50
-                height: 50
-                x:300+(index*(buttonKu.width+10))
+                width: 30
+                height: 30
+                x:0+(index*(buttonKu.width+3))
                 onClicked: {
                     if(index!==10){
                         kupeNo.text+=index
@@ -90,7 +83,191 @@ Item{
         }
 
 
+
+        Rectangle{
+            Layout.maximumWidth: hayvanSorgulamaRoot-(hayvanSorgulamaRoot/3)
+            height: hayvanSorgulamaRoot.height
+            anchors.left: kupeNo.right
+            anchors.leftMargin: 5
+
+            Item {
+                id: hayvanGoruntuleme
+
+                GridLayout{
+                    columns: 2
+                    columnSpacing: largeFontPointSize
+
+
+                    Text {
+                        id: hayvan_turu
+                        text: qsTr("Hayvan Türü")
+                        font.pointSize: 24
+
+                    }
+
+                    ComboBox{
+                        id:hayvan_turuV
+                        model: ["İnek", "Koyun","..."]
+
+                    }
+
+                    Text {
+                        id: hayvan_adi
+                        text: qsTr("Hayvan Adi")
+                        font.pointSize: 24
+
+                    }
+
+                    TextField{
+                        id:hayvan_adiV
+
+
+                    }
+
+                    Text {
+                        id:kupe_no
+                        text: qsTr("Kupe No")
+                        font.pointSize: 24
+
+                    }
+
+                    TextField{
+                        id:kupe_noV
+
+
+                    }
+
+                    Text {
+                        id:dogum_tarihi
+                        text: qsTr("Doğum Tarihi")
+                        font.pointSize: 24
+
+                    }
+
+                    TextField{
+                        id:dogum_tarihiV
+
+
+
+                        onTextChanged:{
+                            if(olum_tarihiV_sayi>length){
+                                text=""
+                                olum_tarihiV_sayi=0
+                            }
+                            else if((length===2) || (length===5) ){
+                                text=text+"-"
+                            }
+                            olum_tarihiV_sayi=length
+                        }
+
+
+                    }
+
+                    Text {
+                        id:olum_tarihi
+                        text: qsTr("Ölüm Tarihi")
+                        font.pointSize: 24
+
+                    }
+
+                    TextField{
+                        id:olum_tarihiV
+
+
+                        onTextChanged:{
+                            //dogum_tarihiV_sayi
+                            if(olum_tarihiV_sayi>length){
+                                text=""
+                                olum_tarihiV_sayi=0
+                            }
+                            else if((length===2) || (length===5) ){
+                                text=text+"-"
+                            }
+                            olum_tarihiV_sayi=length
+                        }
+
+                    }
+
+                    Text {
+                        id:yavru_sayisi
+                        text: qsTr("Yavru sayisi")
+                        font.pointSize: 24
+
+                    }
+
+                    TextField{
+                        id:yavru_sayisiV
+
+
+                    }
+
+                    Text {
+                        id:anne_kupe_no
+                        text: qsTr("Anne Kupe No")
+                        font.pointSize: 24
+
+                    }
+
+                    TextField{
+                        id:anne_kupe_noV
+
+
+                    }
+
+                    Text {
+                        id:baba_kupe_no
+                        text: qsTr("Baba Küpe No")
+                        font.pointSize: 24
+
+                    }
+
+                    TextField{
+                        id:baba_kupe_noV
+
+
+                    }
+
+                    Button{
+                        id:eklemeButton
+                        text: "Ekle"
+                        Layout.fillWidth:true
+                        visible: ilkAcilisVisible
+
+                        onClicked: {
+                            veriEklemeBasariliMi=DataBase.veriTabaniKayitEkle(hayvan_turuV.currentText,
+                                                                              hayvan_adiV.text,
+                                                                              kupe_noV.text,
+                                                                              dogum_tarihiV.text,
+                                                                              olum_tarihiV.text,
+                                                                              parseInt(yavru_sayisiV.text),
+                                                                              anne_kupe_noV.text,
+                                                                              baba_kupe_noV.text)
+                            console.log("veri ekleme basarili mi:"+veriEklemeBasariliMi)
+                            ilkAcilisVisible=true
+                        }
+
+                    }
+
+                    Text {
+                        id: veriEklemeOnayYazisi
+                        text: veriEklemeBasariliMi ? qsTr("Kayıt Başarıyla eklendi"):qsTr("Kayıt Eklenirken Hata Oluştu")
+                        font.bold: true
+                        font.pointSize: 14
+                        color: veriEklemeBasariliMi ? "green":"red"
+                        visible: ilkAcilisVisible
+
+                    }
+
+
+                }
+
+            }
+        }
+
+
     }
+
+
 
 
     function filterModel() {
@@ -110,7 +287,7 @@ Item{
     ListModel {
         id:hayvanlarmodeli
         Component.onCompleted: {
-            kayitliHayvanlarListesi=DataBase.veriTabaniSorgulamaYap("")
+            kayitliHayvanlarListesi=DataBase.veriTabaniSorgulamaYap("")[0]
             for (var i = 0; i < kayitliHayvanlarListesi.length; ++i) {
                 append({value: kayitliHayvanlarListesi[i],visibleV:false});
             }
@@ -128,8 +305,9 @@ Item{
         width: kupeNo.width
         height: kupeNo.height*10
         color: "#403F41"
-        y:200
-        x:200
+        y:kupeNo.height+30+30
+        x:0
+
 
 
         Label {
@@ -137,6 +315,8 @@ Item{
             text:       {qsTr("Hayvanlar")}
             x:(parent.width/100)*17
             y:(parent.height/100)*5
+
+
         }
 
         ListView {
@@ -148,6 +328,7 @@ Item{
             spacing: 15
             clip : false
 
+
             model: hayvanlarmodeliDegisen
 
             delegate: Item {
@@ -155,28 +336,56 @@ Item{
                 width: listView.width
                 height: 50
 
+
                 Rectangle {
                     id: dragRect
-                    width: listView.width/3
+                    width: listView.width-(listView.width/100)*3
                     height: 30
                     radius: 50
                     //                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    color: "#7e1616"
+                    color: index%2==0 ? "#7e1616":"#7e2916"
                     border.color: Qt.darker(color)
-                    visible: {
-                        console.log("visible rect: "+visibleV)
-                        return visibleV}
+                    visible: visibleV
 
                     Text {
                         anchors.centerIn: parent
                         text: "Kupe No: "+value
                     }
+
+                    MouseArea {
+                        id: mouseArea
+                        anchors.fill: parent
+                        onClicked: {
+                            hayvanGoruntulemeListesi=DataBase.veriTabaniSorgulamaYap(value)
+
+                            //hayvan_turuV
+                            hayvan_turuV.currentIndex=hayvanGoruntulemeListesi[0]==="İnek" ? 0:1
+                            hayvan_adiV.text=hayvanGoruntulemeListesi[1]
+                            kupe_noV.text=hayvanGoruntulemeListesi[2]
+                            dogum_tarihiV.text=hayvanGoruntulemeListesi[3]
+                            olum_tarihiV.text=hayvanGoruntulemeListesi[4]
+                            yavru_sayisiV.text=hayvanGoruntulemeListesi[5]
+                            anne_kupe_noV.text=hayvanGoruntulemeListesi[6]
+                            baba_kupe_noV.text=hayvanGoruntulemeListesi[7]
+
+                        }
+                    }
+
+
                 }
+
             }
 
+
+
         }
+
+
     }
+
+
+
 
     Component.onCompleted: {
         console.log("yuklendi")
@@ -190,7 +399,7 @@ Item{
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:640}
 }
 ##^##*/
 

@@ -23,6 +23,9 @@ Item {
     property bool veriEklemeBasariliMi: false
     property bool ilkAcilisVisible: false
 
+    property int olum_tarihiV_sayi: 0
+    property int dogum_tarihiV_sayi: 0
+
     GridLayout{
         columns: 2
         columnSpacing: largeFontPointSize
@@ -37,7 +40,7 @@ Item {
 
         ComboBox{
             id:hayvan_turuV
-            model: ["Koyun", "İnek","..."]
+            model: ["İnek","Koyun", "..."]
 
         }
 
@@ -80,11 +83,16 @@ Item {
 
 
             onTextChanged:{
-                console.log(text)
-                if((length===2) || (length===5) ){
+                if(olum_tarihiV_sayi>length){
+                    text=""
+                    olum_tarihiV_sayi=0
+                }
+                else if((length===2) || (length===5) ){
                     text=text+"-"
                 }
+                olum_tarihiV_sayi=length
             }
+
 
         }
 
@@ -100,10 +108,15 @@ Item {
             text: "12-12-2001"
 
             onTextChanged:{
-                console.log(text)
-                if((length===2) || (length===5) ){
+                //dogum_tarihiV_sayi
+                if(olum_tarihiV_sayi>length){
+                    text=""
+                    olum_tarihiV_sayi=0
+                }
+                else if((length===2) || (length===5) ){
                     text=text+"-"
                 }
+                olum_tarihiV_sayi=length
             }
 
         }

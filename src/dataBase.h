@@ -37,7 +37,9 @@ public:
 
     Q_INVOKABLE bool veriTabaniKayitSil();
 
-    Q_INVOKABLE QList<QString> veriTabaniSorgulamaYap(QString kupeNo);
+    Q_INVOKABLE QVariantList veriTabaniSorgulamaYap(QString kupeNo);
+
+
 
     QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE");
 
