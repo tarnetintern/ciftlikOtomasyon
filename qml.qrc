@@ -10,5 +10,6 @@
         <file>pages/stokTakipDuzenle.qml</file>
         <file>pages/stokTakipSil.qml</file>
         <file>pages/stokTakipStoklar.qml</file>
+        <file>pages/COPopupDialog.qml</file>
     </qresource>
 </RCC>
