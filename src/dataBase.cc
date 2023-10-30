@@ -41,7 +41,7 @@ bool DataBase::tablolariOlustur()
         QString createTableQuery = "CREATE TABLE hayvanlar ("
                                    "hayvan_turu TEXT, "
                                    "hayvan_adi TEXT, "
-                                   "kupe_no TEXT, "
+                                   "kupe_no TEXT UNIQUE, "
                                    "dogum_tarihi DATE, "
                                    "olum_tarihi DATE, "
                                    "yavru_sayisi INTEGER, "
@@ -89,10 +89,11 @@ bool DataBase::veriTabaniKayitEkle(QString hayvanTuru, QString hayvanAdi, QStrin
             qDebug() << "Veri başarıyla eklendi.";
         } else {
             qDebug() << "Veri eklerken hata oluştu: " << query.lastError().text();
+            return false;
         }
 
         // Veritabanı bağlantısını kapatmayı unutmayın
-        //db.close();
+        db.close();
         return true;
     } else {
         qDebug() << "Veritabanı bağlantısı başarısız oldu.";
@@ -134,6 +135,7 @@ QVariantList DataBase::veriTabaniSorgulamaYap(QString kupeNo)
             } else {
                 qDebug() << "Sorgu çalıştırma hatası: " << query.lastError().text();
             }
+            db.close();
 
         } else {
             qDebug() << "Veritabanı bağlantısı başarısız oldu.";
@@ -166,7 +168,7 @@ QVariantList DataBase::veriTabaniSorgulamaYap(QString kupeNo)
             }
 
             // Veritabanı bağlantısını kapatmayı unutmayın
-            //db.close();
+            db.close();
         } else {
             qDebug() << "Veritabanı bağlantısı başarısız oldu.";
         }
@@ -174,6 +176,54 @@ QVariantList DataBase::veriTabaniSorgulamaYap(QString kupeNo)
 
     return variantList;
 
+}
+
+QString DataBase::veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
+                                          QString kupeNo,QString dogumTarihi,
+                                          QString olumTarihi,int yavruSayisi,
+                                          QString anneKupeNo,QString babaKupeNo)
+{
+    QString sonuc;
+//baba_kupe_no
+    if (db.open()) {
+        QSqlQuery query;
+        query.prepare("UPDATE hayvanlar SET "
+                      "hayvan_turu = :hayvanTuru, "
+                      "hayvan_adi = :hayvanAdi, "
+                      "dogum_tarihi = :dogumTarihi"
+                      "olum_tarihi = :olumTarihi"
+                      "yavru_sayisi = :yavruSayisi"
+                      "anne_kupe_no = :anneKupeNo"
+                      "baba_kupe_no = :babaKupeNo"
+                      "WHERE kupe_no = :kupeNo");
+
+        query.bindValue(":hayvanTuru", hayvanTuru);
+        query.bindValue(":hayvanAdi", hayvanAdi);
+        query.bindValue(":dogumTarihi", dogumTarihi);
+        query.bindValue(":olumTarihi", olumTarihi);
+        query.bindValue(":yavruSayisi", yavruSayisi);
+        query.bindValue(":anneKupeNo", anneKupeNo);
+        query.bindValue(":anneKupeNo", babaKupeNo);
+        query.bindValue(":yeniDogumTarihi", dogumTarihi);
+        query.bindValue(":kupeNo", kupeNo);
+
+        if (query.exec()) {
+            sonuc="Hayvan verileri güncellendi.";
+            qDebug() << sonuc;
+        } else {
+            sonuc=query.lastError().text();
+            qDebug() << "Sorgu çalıştırma hatası: " << sonuc;
+        }
+
+        db.close();
+    } else {
+        sonuc="Veritabanı bağlantısı başarısız oldu.";
+        qDebug() << sonuc;
+    }
+
+
+
+    return sonuc;
 }
 
 

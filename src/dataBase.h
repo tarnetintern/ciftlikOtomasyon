@@ -38,6 +38,10 @@ public:
     Q_INVOKABLE bool veriTabaniKayitSil();
 
     Q_INVOKABLE QVariantList veriTabaniSorgulamaYap(QString kupeNo);
+    Q_INVOKABLE QString veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
+                                                QString kupeNo,QString dogumTarihi,
+                                                QString olumTarihi,int yavruSayisi,
+                                                QString anneKupeNo,QString babaKupeNo);
 
 
 

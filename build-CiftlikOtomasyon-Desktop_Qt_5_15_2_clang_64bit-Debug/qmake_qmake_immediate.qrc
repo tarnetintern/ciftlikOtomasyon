@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+<file alias="hayvanGorselleri/inek1.png">/Users/batuhanokmen/Documents/yazilim/ciftlikOtomasyon/hayvanGorselleri/inek1.png</file>
+<file alias="hayvanGorselleri/inek2.png">/Users/batuhanokmen/Documents/yazilim/ciftlikOtomasyon/hayvanGorselleri/inek2.png</file>
+</qresource>
+</RCC>

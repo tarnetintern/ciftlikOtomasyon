@@ -26,7 +26,7 @@ Item{
     property var hayvanGoruntulemeListesi
 
     property bool ilkAcilisVisible: false
-    property bool veriEklemeBasariliMi: false
+    property string veriEklemeBasariliMi: ""
     property bool duzenlemeAktifMi: false
 
     property int olum_tarihiV_sayi: 0
@@ -139,7 +139,7 @@ Item{
 
                     TextField{
                         id:kupe_noV
-                        enabled: duzenlemeAktifMi
+                        enabled: false
 
 
                     }
@@ -248,21 +248,21 @@ Item{
 
                     Button{
                         id:eklemeButton
-                        text: "Ekle"
+                        text: "Güncelle"
                         Layout.fillWidth:true
                         visible: duzenlemeAktifMi
                         enabled: duzenlemeAktifMi
 
                         onClicked: {
-                            veriEklemeBasariliMi=DataBase.veriTabaniKayitEkle(hayvan_turuV.currentText,
-                                                                              hayvan_adiV.text,
-                                                                              kupe_noV.text,
-                                                                              dogum_tarihiV.text,
-                                                                              olum_tarihiV.text,
-                                                                              parseInt(yavru_sayisiV.text),
-                                                                              anne_kupe_noV.text,
-                                                                              baba_kupe_noV.text)
-                            console.log("veri ekleme basarili mi:"+veriEklemeBasariliMi)
+                            veriEklemeBasariliMi=DataBase.veriTabaniGuncellemeYap(hayvan_turuV.currentText,
+                                                                                  hayvan_adiV.text,
+                                                                                  kupe_noV.text,
+                                                                                  dogum_tarihiV.text,
+                                                                                  olum_tarihiV.text,
+                                                                                  parseInt(yavru_sayisiV.text),
+                                                                                  anne_kupe_noV.text,
+                                                                                  baba_kupe_noV.text)
+                            console.log("veri guncelleme basarili mi:"+veriEklemeBasariliMi)
                             ilkAcilisVisible=true
                         }
 
@@ -270,10 +270,10 @@ Item{
 
                     Text {
                         id: veriEklemeOnayYazisi
-                        text: veriEklemeBasariliMi ? qsTr("Kayıt Başarıyla eklendi"):qsTr("Kayıt Eklenirken Hata Oluştu")
+                        text: veriEklemeBasariliMi
                         font.bold: true
                         font.pointSize: 14
-                        color: veriEklemeBasariliMi ? "green":"red"
+
                         visible: ilkAcilisVisible
 
                     }
