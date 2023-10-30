@@ -233,6 +233,7 @@ DIST          = /Users/Qt/5.15.2/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/Qt/5.15.2/clang_64/mkspecs/features/qt_config.prf \
 		/Users/Qt/5.15.2/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/Qt/5.15.2/clang_64/mkspecs/features/spec_post.prf \
+		../.qmake.stash \
 		/Users/Qt/5.15.2/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/Qt/5.15.2/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/Qt/5.15.2/clang_64/mkspecs/features/toolchain.prf \
@@ -449,6 +450,7 @@ Makefile: ../CiftlikOtomasyon.pro ../../../../Qt/5.15.2/clang_64/mkspecs/feature
 		../../../../Qt/5.15.2/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.15.2/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt/5.15.2/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt/5.15.2/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.15.2/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt/5.15.2/clang_64/mkspecs/features/toolchain.prf \
@@ -651,6 +653,7 @@ Makefile: ../CiftlikOtomasyon.pro ../../../../Qt/5.15.2/clang_64/mkspecs/feature
 ../../../../Qt/5.15.2/clang_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/5.15.2/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt/5.15.2/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt/5.15.2/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.15.2/clang_64/mkspecs/features/mac/sdk.prf:
 ../../../../Qt/5.15.2/clang_64/mkspecs/features/toolchain.prf:
@@ -734,6 +737,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r CiftlikOtomasyon.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -765,8 +769,12 @@ qrc_qml.cpp: ../qml.qrc \
 		../pages/hayvanSorgulama.qml \
 		../pages/stokTakip.qml \
 		../pages/yemYemeSuresi.qml \
+		../pages/stokTakipDuzenle.qml \
+		../pages/stokTakipStoklar.qml \
 		../pages/hayvanEkleme.qml \
-		../pages/anomaliler.qml
+		../pages/stokTakipEkle.qml \
+		../pages/anomaliler.qml \
+		../pages/stokTakipSil.qml
 	/Users/batuhanokmen/Qt/5.15.2/clang_64/bin/rcc -name qml ../qml.qrc -o qrc_qml.cpp
 
 qrc_images.cpp: ../images.qrc \

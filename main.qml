@@ -8,6 +8,8 @@ import QtQuick.Dialogs  1.3
 
 import COtomasyon.ScreenToolsController 1.0
 
+import COtomasyon.DataBase 1.0
+
 ApplicationWindow {
     id:mainWindow
     //1920x1080
@@ -205,6 +207,12 @@ ApplicationWindow {
         }
     }
 
+    Component.onCompleted: {
+        console.log("yuklendi")
+        console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","deneme3","batuhan","admin"))
+        console.log("Tabloları olusturma: "+DataBase.tablolariOlustur())
+
+    }
 
 
 }

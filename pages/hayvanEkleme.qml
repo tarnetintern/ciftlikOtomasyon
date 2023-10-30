@@ -197,9 +197,6 @@ Item {
 
 
     Component.onCompleted: {
-        console.log("yuklendi")
-        console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","deneme3","batuhan","admin"))
-        console.log("Tabloları olusturma: "+DataBase.tablolariOlustur())
 
 
     }

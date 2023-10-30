@@ -208,23 +208,6 @@ QString DataBase::veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
         query.bindValue(":anneKupeNo", babaKupeNo);
         query.bindValue(":kupeNo", kupeNo);
 
-
-//        query.prepare("UPDATE hayvanlar "
-//                      "SET (hayvan_turu, hayvan_adi, kupe_no, dogum_tarihi, olum_tarihi, yavru_sayisi, anne_kupe_no, baba_kupe_no) "
-//                      "VALUES (:hayvan_turu, :hayvan_adi, :kupe_no, :dogum_tarihi, :olum_tarihi, :yavru_sayisi, :anne_kupe_no, :baba_kupe_no) "
-//                      "WHERE kupe_no = :kupeNo");
-
-//        query.bindValue(":hayvan_turu", hayvanTuru);
-//        query.bindValue(":hayvan_adi", hayvanAdi);
-//        query.bindValue(":kupe_no", kupeNo);
-//        query.bindValue(":dogum_tarihi", dogumTarihi);
-//        query.bindValue(":olum_tarihi", olumTarihi);
-//        query.bindValue(":yavru_sayisi", yavruSayisi);
-//        query.bindValue(":anne_kupe_no", anneKupeNo);
-//        query.bindValue(":baba_kupe_no", babaKupeNo);
-
-
-
         if (query.exec()) {
             sonuc="Hayvan verileri güncellendi.";
             qDebug() << sonuc;
