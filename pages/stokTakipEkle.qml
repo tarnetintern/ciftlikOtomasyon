@@ -98,6 +98,8 @@ Rectangle {
             placeholderText: "Ürünün adını girin"
         }
         Text {
+            //bu sistem anlık olarak text degistiginde veri tabanından sorgulama yapar ve uygunluk
+            //kontrol edilmesi saglanir
             id: urunAdiKontrol
             text: qsTr("-")
             color: "red"

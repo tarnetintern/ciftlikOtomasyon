@@ -11,6 +11,14 @@ import COtomasyon.ScreenToolsController 1.0
 
 import COtomasyon.DataBase 1.0
 
+//background: Rectangle {
+//    color: parent.down ? "green" :
+//                         (parent.hovered ? "#d6d6d6" : "#f6f6f6")
+//}
+//buton yanıp söner
+
+
+
 Rectangle{
     id:stokTakipWindow
     property double defaultSpacing: screen.desktopAvailableWidth/40
@@ -48,12 +56,16 @@ Rectangle{
             id:         buttonColumn
             spacing:    _verticalMargin
             property real _maxButtonWidth: 0
+
             Button{
                 text: "Stoklar"
+
 
                 onClicked: {
                     __rightPanel.source = "qrc:/pages/stokTakipStoklar.qml"
                 }
+
+
             }
             Button{
                 text: "Ekle"
@@ -80,26 +92,30 @@ Rectangle{
     }
 
     Rectangle {
-            id:                     divider
-            anchors.topMargin:      _verticalMargin
-            anchors.bottomMargin:   _verticalMargin
-            anchors.leftMargin:     _horizontalMargin
-            anchors.left:           buttonList.right
-            anchors.top:            parent.top
-            anchors.bottom:         parent.bottom
-            width:                  1
-            color:                  "red"
-        }
+        id:                     divider
+        anchors.topMargin:      _verticalMargin
+        anchors.bottomMargin:   _verticalMargin
+        anchors.leftMargin:     _horizontalMargin
+        anchors.left:           buttonList.right
+        anchors.top:            parent.top
+        anchors.bottom:         parent.bottom
+        width:                  1
+        color:                  "red"
+    }
     Loader {
-            id:                     __rightPanel
-            anchors.leftMargin:     _horizontalMargin
-            anchors.rightMargin:    _horizontalMargin
-            anchors.topMargin:      _verticalMargin
-            anchors.bottomMargin:   _verticalMargin
-            anchors.left:           divider.right
-            anchors.right:          parent.right
-            anchors.top:            parent.top
-            anchors.bottom:         parent.bottom
-            //bunun soruce degerine source qrc kısmını ver ve işle
-        }
+        id:                     __rightPanel
+        anchors.leftMargin:     _horizontalMargin
+        anchors.rightMargin:    _horizontalMargin
+        anchors.topMargin:      _verticalMargin
+        anchors.bottomMargin:   _verticalMargin
+        anchors.left:           divider.right
+        anchors.right:          parent.right
+        anchors.top:            parent.top
+        anchors.bottom:         parent.bottom
+
+        property string urunStok: ""
+
+
+        //bunun soruce degerine source qrc kısmını ver ve işle
+    }
 }

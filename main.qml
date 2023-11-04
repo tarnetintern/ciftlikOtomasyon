@@ -69,7 +69,7 @@ ApplicationWindow {
     Rectangle{
         width: defaultWidth
         height:defaultHeight
-        color: "#6cd5b4"
+        color: "#242227"
         Item {
             id: otomasyonlarAnaItem
             y:defaultFontPixelWidth
@@ -85,7 +85,7 @@ ApplicationWindow {
                     delegate: Rectangle{
                         width: defaultWidth/defaultWidthSplit
                         height: defaultHeight/defaultHeightSplit
-                        color: "#83cf72"
+                        color: "#9a1d49"
                         Text {
                             anchors.centerIn: parent
                             text: boxNames[index]
@@ -135,7 +135,7 @@ ApplicationWindow {
             anchors.right:  parent.right
             anchors.top:    parent.top
             height:         toolbarHeight
-            color:          "blue"
+            color:          "#9a1d49"
 
             RowLayout {
                 anchors.leftMargin: defaultFontPixelWidth
