@@ -205,7 +205,7 @@ QString DataBase::veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
         query.bindValue(":olumTarihi", olumTarihi);
         query.bindValue(":yavruSayisi", yavruSayisi);
         query.bindValue(":anneKupeNo", anneKupeNo);
-        query.bindValue(":anneKupeNo", babaKupeNo);
+        query.bindValue(":babaKupeNo", babaKupeNo);
         query.bindValue(":kupeNo", kupeNo);
 
         if (query.exec()) {
