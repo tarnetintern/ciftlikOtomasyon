@@ -212,7 +212,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         console.log("yuklendi")
-        console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","deneme3","batuhan","admin"))
+        console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","ciftlikotomasyon.db","batuhan","admin"))
         console.log("Tabloları olusturma hayvanlar: "+DataBase.tablolariOlustur())
         //console.log("Tabloları olusturma stoklar: "+DataBase.tablolariOlusturStok())
 

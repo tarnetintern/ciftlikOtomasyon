@@ -29,8 +29,13 @@ bool DataBase::veriTabaniniOlustur(QString setHostName, QString setDatabaseName,
     else{
         ok=true;
     }
+    //qDebug()<<"veri tabani adi";
+    //db.setDatabaseName("veritabani.db");
+    qDebug() << "Veritabanı yolu:" << db.databaseName();
 
     return ok;
+
+
 
 }
 
@@ -262,6 +267,16 @@ QString DataBase::veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
 
 
     return sonuc;
+}
+
+bool DataBase::veriTabaniKayitEkleKategoriler(QString kategori_adi)
+{
+    return true;
+}
+
+bool DataBase::veriTabaniKayitEkleStok(QString kategori_adi, QString urun_adi, QString sku_no, QDate eklenme_tarihi, int stok_adet)
+{
+    return true;
 }
 
 
