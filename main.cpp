@@ -9,6 +9,8 @@
 
 #include "dataBase.h"
 
+#include "bluetooth.h"
+
 static QObject* screenToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
 {
     ScreenToolsController* screenToolsController = new ScreenToolsController;
@@ -21,6 +23,21 @@ static QObject* databaseToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
     DataBase* dataBase = new DataBase;
     return dataBase;
 }
+
+static QObject* bluetoothSingletonFactory(QQmlEngine*, QJSEngine*)
+{
+    Bluetooth* scanner = new Bluetooth;
+    return scanner;
+}
+
+
+bool bluetooth(){
+    Bluetooth scanner;
+    //scanner.startScan();
+    scanner.bluetoothAc();
+    return true;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +53,7 @@ int main(int argc, char *argv[])
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
 
+    qmlRegisterSingletonType<ScreenToolsController> ("COtomasyon.BluetoothController",    1, 0, "BluetoothController",  bluetoothSingletonFactory);
     qmlRegisterSingletonType<ScreenToolsController> ("COtomasyon.ScreenToolsController",    1, 0, "ScreenToolsController",  screenToolsControllerSingletonFactory);
     qmlRegisterSingletonType<DataBase> ("COtomasyon.DataBase",    1, 0, "DataBase",  databaseToolsControllerSingletonFactory);
 

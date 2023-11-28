@@ -29,11 +29,11 @@ ApplicationWindow {
 
     property int    defaultWidthSplit: 6
     property int    defaultHeightSplit: 6
-    property int    defaultBoxNumber: 5
+    property int    defaultBoxNumber: 6
     property var    boxNames:
         ["Anomaliler","Hayvan Sorgulama",
         "Yem Yeme Süresi","Stok Takip",
-        "Hayvan Ekleme"]
+        "Hayvan Ekleme","Bluetooth"]
 
 
     property bool   isAndroid :ScreenToolsController.isAndroid
@@ -62,6 +62,9 @@ ApplicationWindow {
         }
         else if(whichPage==="Hayvan Ekleme"){
             showTool(qsTr("Hayvan Ekleme"), "pages/hayvanEkleme.qml", "inek")
+        }
+        else if(whichPage==="Bluetooth"){
+            showTool(qsTr("Bluetooth"), "pages/bluetooth.qml", "inek")
         }
 
     }
@@ -210,7 +213,8 @@ ApplicationWindow {
     Component.onCompleted: {
         console.log("yuklendi")
         console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","deneme3","batuhan","admin"))
-        console.log("Tabloları olusturma: "+DataBase.tablolariOlustur())
+        console.log("Tabloları olusturma hayvanlar: "+DataBase.tablolariOlustur())
+        console.log("Tabloları olusturma stoklar: "+DataBase.tablolariOlusturStok())
 
     }
 

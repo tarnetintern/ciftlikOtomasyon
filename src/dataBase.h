@@ -28,6 +28,7 @@ public:
     Q_INVOKABLE bool veriTabaniniOlustur(QString setHostName,QString setDatabaseName,
                              QString setUserName,QString setPassword);
     Q_INVOKABLE bool tablolariOlustur();
+    Q_INVOKABLE bool tablolariOlusturStok();
 
 
     Q_INVOKABLE bool veriTabaniKayitEkle(QString hayvanTuru,QString hayvanAdi,

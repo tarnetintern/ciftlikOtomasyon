@@ -1,5 +1,6 @@
 QT += quick\
       widgets \
+      bluetooth \
 
 QT += sql
 #QT += 3dcore
@@ -34,12 +35,14 @@ SOURCES += \
         main.cpp\
         screenTools/ScreenToolsController.cc\
         src/COtomasyonApplication.cc\
+        src/bluetooth.cpp \
         src/dataBase.cc
 
 
 HEADERS +=\
         screenTools/ScreenToolsController.h\
         src/COtomasyonApplication.h\
+        src/bluetooth.h \
         src/dataBase.h
 
 RESOURCES +=\

@@ -11,5 +11,6 @@
         <file>pages/stokTakipSil.qml</file>
         <file>pages/stokTakipStoklar.qml</file>
         <file>pages/COPopupDialog.qml</file>
+        <file>pages/bluetooth.qml</file>
     </qresource>
 </RCC>
