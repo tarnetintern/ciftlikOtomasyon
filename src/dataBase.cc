@@ -35,59 +35,6 @@ bool DataBase::veriTabaniniOlustur(QString setHostName, QString setDatabaseName,
 }
 
 
-bool DataBase::tablolariOlusturStok()
-{
-
-
-    qDebug()<<"tablo olusturuluyor stok";
-
-    if (db.tables().isEmpty()) {
-
-        QString createTableQuery = "CREATE TABLE stoklar ("
-                                   "stok_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                   "kategori_id INTEGER, "
-                                   "urun_adi TEXT, "
-                                   "sku_no TEXT UNIQUE, "
-                                   "eklenme_tarihi DATE, "
-                                   "stok_adet INTEGER, "
-                                   "FOREIGN KEY(kategori_id) REFERENCES kategoriler(kategori_id))";
-
-        QSqlQuery query(db);
-        if (query.exec(createTableQuery)) {
-            qDebug()<<"tablo olusturuldu";
-
-        } else {
-            qDebug() << "Tablo oluşturma hatası: " <<query.lastError().text() ;
-                                                      return false;
-        }
-    }else{
-        qDebug()<<"tablo bos degil";
-        return false;
-
-    }
-
-    if (db.tables().isEmpty()) {
-
-        QString createCategoryTableQuery = "CREATE TABLE kategoriler ("
-                                           "kategori_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                           "kategori_adi TEXT UNIQUE)";
-        QSqlQuery query(db);
-        if (!query.exec(createCategoryTableQuery)) {
-            qDebug() << "Kategori tablosu oluşturma hatası: " << query.lastError().text();
-            return false;
-        }
-
-
-        QString modifyStokTableQuery = "ALTER TABLE stoklar ADD COLUMN kategori_id INTEGER REFERENCES kategoriler(kategori_id)";
-        if (!query.exec(modifyStokTableQuery)) {
-            qDebug() << "Stok tablosunu güncelleme hatası: " << query.lastError().text();
-            return false;
-        }
-
-    }
-    return true;
-}
-
 bool DataBase::tablolariOlustur()
 {
     qDebug()<<"tablo olusturuluyor Hayvanlar";
@@ -102,57 +49,56 @@ bool DataBase::tablolariOlustur()
                                    "anne_kupe_no TEXT, "
                                    "baba_kupe_no TEXT)";
 
-        QString createTableQuery2 = "CREATE TABLE stoklar ("
-                                   "stok_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                   "kategori_id INTEGER, "
-                                   "urun_adi TEXT, "
-                                   "sku_no TEXT UNIQUE, "
-                                   "eklenme_tarihi DATE, "
-                                   "stok_adet INTEGER, "
-                                   "FOREIGN KEY(kategori_id) REFERENCES kategoriler(kategori_id))";
-
         QString createCategoryTableQuery3 = "CREATE TABLE kategoriler ("
-                                           "kategori_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                           "kategori_adi TEXT UNIQUE)";
+                                            "kategori_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                            "kategori_adi TEXT UNIQUE)";
 
-        QString modifyStokTableQuery = "ALTER TABLE stoklar ADD COLUMN kategori_id INTEGER REFERENCES kategoriler(kategori_id)";
+        QString createTableQuery2 = "CREATE TABLE stoklar ("
+                                    "stok_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                    "kategori_id INTEGER, "
+                                    "urun_adi TEXT, "
+                                    "sku_no TEXT UNIQUE, "
+                                    "eklenme_tarihi DATE, "
+                                    "stok_adet INTEGER, "
+                                    "FOREIGN KEY(kategori_id) REFERENCES kategoriler(kategori_id))";
+
+
+
+        //QString modifyStokTableQuery = "ALTER TABLE stoklar ADD COLUMN kategori_id INTEGER REFERENCES kategoriler(kategori_id)";
 
         QSqlQuery query(db);
         if (query.exec(createTableQuery)) {
-            qDebug()<<"tablo olusturuldu";
+            qDebug()<<"tablo olusturuldu hayvanlar";
 
         } else {
             qDebug() << "Tablo oluşturma hatası: " <<query.lastError().text() ;
-            return false;
+                                                      return false;
         }
-        if (query.exec(createTableQuery2)) {
-            qDebug()<<"tablo olusturuldu2";
 
-        } else {
-            qDebug() << "Tablo oluşturma hatası: " <<query.lastError().text() ;
-            return false;
-        }
         if (query.exec(createCategoryTableQuery3)) {
-            qDebug()<<"tablo olusturuldu3";
+            qDebug()<<"tablo olusturuldu kategori";
 
         } else {
             qDebug() << "Tablo oluşturma hatası: " <<query.lastError().text() ;
-            return false;
+                                                      return false;
         }
 
-        if (!query.exec(modifyStokTableQuery)) {
-            qDebug() << "Stok tablosunu güncelleme hatası: " << query.lastError().text();
-            return false;
+        if (query.exec(createTableQuery2)) {
+            qDebug()<<"tablo olusturuldu stoklar";
+
+        } else {
+            qDebug() << "Tablo oluşturma hatası: " <<query.lastError().text() ;
+                                                      return false;
         }
+
     }else{
         qDebug()<<"tablo bos degil";
         return false;
 
     }
+
     return true;
 }
-
-
 
 bool DataBase::veriTabaniKayitEkle(QString hayvanTuru, QString hayvanAdi, QString kupeNo, QString dogumTarihi, QString olumTarihi,
                                    int yavruSayisi, QString anneKupeNo, QString babaKupeNo)
@@ -180,7 +126,7 @@ bool DataBase::veriTabaniKayitEkle(QString hayvanTuru, QString hayvanAdi, QStrin
             qDebug() << "Veri başarıyla eklendi.";
         } else {
             qDebug() << "Veri eklerken hata oluştu: " << query.lastError().text();
-            return false;
+                                                         return false;
         }
 
         // Veritabanı bağlantısını kapatmayı unutmayın
@@ -275,7 +221,7 @@ QString DataBase::veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
                                           QString anneKupeNo,QString babaKupeNo)
 {
     QString sonuc;
-//baba_kupe_no
+    //baba_kupe_no
     if (db.open()) {
         QSqlQuery query;
 
@@ -301,7 +247,7 @@ QString DataBase::veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
 
         if (query.exec()) {
             sonuc="Hayvan verileri güncellendi.";
-            qDebug() << sonuc;
+                    qDebug() << sonuc;
         } else {
             sonuc=query.lastError().text();
             qDebug() << "Sorgu çalıştırma hatası: " << sonuc;

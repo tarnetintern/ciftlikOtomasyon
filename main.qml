@@ -214,7 +214,7 @@ ApplicationWindow {
         console.log("yuklendi")
         console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","deneme3","batuhan","admin"))
         console.log("Tabloları olusturma hayvanlar: "+DataBase.tablolariOlustur())
-        console.log("Tabloları olusturma stoklar: "+DataBase.tablolariOlusturStok())
+        //console.log("Tabloları olusturma stoklar: "+DataBase.tablolariOlusturStok())
 
     }
 
