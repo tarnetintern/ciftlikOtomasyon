@@ -28,45 +28,62 @@ Rectangle {
     readonly property real _verticalMargin:     _defaultFontPixelHeight / 2
     readonly property real _buttonHeight:       ScreenToolsController.isTinyScreen ? _defaultFontPixelHeight * 3 : _defaultFontPixelHeight * 2
 
+
+    property var kategorilerModel:[]
+    property var donenListe:[]
+
     //popupGuncelleme.createObject(kullanicigiris).open()
     Component {
-           id: popupGuncelleme
+        id: popupGuncelleme
 
-           COPopupDialog {
-               id:         deneme
-               title:      qsTr("Yeni Kategori Ekle")
-               buttons:    StandardButton.Close
-               property bool eklemeBasariliMi: false
-               ColumnLayout{
-                   spacing:    _verticalMargin
+        COPopupDialog {
+            id:         deneme
+            title:      qsTr("Yeni Kategori Ekle")
+            buttons:    StandardButton.Close
+            property bool eklemeBasariliMi: false
+            ColumnLayout{
+                spacing:    _verticalMargin
 
-                   Text {
-                       text:  "Eklemek istediğiniz kategoriyi giriniz"
-                       font.pixelSize: 24
-                       color: "red"
-                   }
-                   TextField{
-                       placeholderText: "Kategoriyi Yazınız"
-
-
-                   }
-                   Button{
-                       text: "EKLE"
-                       onClicked: eklemeBasariliMi=true
-                   }
-                   Text {
-                       text: eklemeBasariliMi ? "Başarılı":"Başarısız"
-                       font.pixelSize: 24
-                       color: eklemeBasariliMi ? "green":"red"
-                   }
-
-               }
+                Text {
+                    text:  "Eklemek istediğiniz kategoriyi giriniz"
+                    font.pixelSize: 24
+                    color: "red"
+                }
+                TextField{
+                    id:kategoriAdi
+                    placeholderText: "Kategoriyi Yazınız"
 
 
+                }
+                Button{
+                    text: "EKLE"
+                    onClicked: {
+                        eklemeBasariliMi=DataBase.veriTabaniKayitEkleKategoriler(kategoriAdi.text)
+                        if(eklemeBasariliMi){
+                            kategorilerModel = []
+                            donenListe=DataBase.veriTabaniKayitSorgulaKategoriler()
+                            for (var i = 0; i < donenListe.length; ++i) {
+                                kategorilerModel.push(donenListe[i]);
+                            }
 
-           }
+                            kategoriGrubuComboBox.model=kategorilerModel
+                        }
 
-       }
+                    }
+                }
+                Text {
+                    text: eklemeBasariliMi ? "Başarılı":"Başarısız"
+                    font.pixelSize: 24
+                    color: eklemeBasariliMi ? "green":"red"
+                }
+
+            }
+
+
+
+        }
+
+    }
 
     GridLayout {
         id:         buttonGrid
@@ -80,6 +97,7 @@ Rectangle {
             color: "red"
         }
         ComboBox{
+            id: kategoriGrubuComboBox
             Layout.fillWidth: parent
 
             model: ["..."]
@@ -95,6 +113,7 @@ Rectangle {
             color: "red"
         }
         TextField{
+            id:urunAdiTextField
             placeholderText: "Ürünün adını girin"
         }
         Text {
@@ -107,12 +126,34 @@ Rectangle {
 
 
         }
+        //
+        Text {
+            id: skuAdi
+            text: qsTr("SKU adı")
+            color: "red"
+        }
+        TextField{
+            id:skuAdiTextField
+            placeholderText: "SKU Kodunu girin"
+        }
+        Text {
+            //bu sistem anlık olarak text degistiginde veri tabanından sorgulama yapar ve uygunluk
+            //kontrol edilmesi saglanir
+            id: skuAdiKontrol
+            text: qsTr("-")
+            color: "red"
+            Layout.fillWidth: parent
+
+
+        }
+        //
         Text {
             id: stokAdet
             text: qsTr("Stok Adet")
             color: "red"
         }
         TextField{
+            id:stockAdetTextField
             placeholderText: "Ürünün başlangıç stoğunu girin"
             validator: IntValidator {bottom: 0; top: 1000000}
         }
@@ -124,14 +165,39 @@ Rectangle {
         Button{
             id:onayla
             text:"EKLE"
-            onClicked: onayYazisi.visible=true
+            onClicked: {
+//                var currentDate = new Date();
+                if(DataBase.veriTabaniKayitEkleStok(kategoriGrubuComboBox.currentText,urunAdiTextField.text,skuAdiTextField.text,/*currentDate,*/stockAdetTextField.text)){
+                    onayYazisi.visible=true
+                }else{
+                    redYazisi.visible=true
+                }
+
+            }
         }
         Text {
             id: onayYazisi
+            color: "#48e40f"
             text: qsTr("Ürün Başarıyla Eklenmiştir")
+            font.bold: true
+            font.pointSize: 20
             visible:false
         }
+        Text {
+            id: redYazisi
+            text: qsTr("Ürün Eklenirken Hata Olmuştur")
+            visible:false
+        }
+    }
 
+    Component.onCompleted: {
+        kategorilerModel = []
+        donenListe=DataBase.veriTabaniKayitSorgulaKategoriler()
+        for (var i = 0; i < donenListe.length; ++i) {
+            kategorilerModel.push(donenListe[i]);
+        }
+
+        kategoriGrubuComboBox.model=kategorilerModel
 
     }
 

@@ -45,7 +45,8 @@ public:
                                                 QString anneKupeNo,QString babaKupeNo);
 
     Q_INVOKABLE bool veriTabaniKayitEkleKategoriler(QString kategori_adi);
-    Q_INVOKABLE bool veriTabaniKayitEkleStok(QString kategori_adi,QString urun_adi,QString sku_no,QDate eklenme_tarihi,int stok_adet);
+    Q_INVOKABLE QList<QString> veriTabaniKayitSorgulaKategoriler();
+    Q_INVOKABLE bool veriTabaniKayitEkleStok(QString kategori_adi,QString urun_adi,QString sku_no,/*QDate eklenme_tarihi,*/int stok_adet);
 
 
 

@@ -271,12 +271,68 @@ QString DataBase::veriTabaniGuncellemeYap(QString hayvanTuru,QString hayvanAdi,
 
 bool DataBase::veriTabaniKayitEkleKategoriler(QString kategori_adi)
 {
-    return true;
+
+    QSqlQuery query;
+    bool success;
+
+    // "Elektronik" kategorisini ekleyin
+    query.prepare("INSERT INTO kategoriler (kategori_adi) VALUES (:kategori_adi)");
+    query.bindValue(":kategori_adi", kategori_adi);
+    success = query.exec();
+    if (!success) {
+        qDebug() << "Kategori ekleme hatası: " << query.lastError().text();
+    }
+
+    return success;
 }
 
-bool DataBase::veriTabaniKayitEkleStok(QString kategori_adi, QString urun_adi, QString sku_no, QDate eklenme_tarihi, int stok_adet)
+QList<QString> DataBase::veriTabaniKayitSorgulaKategoriler()
 {
-    return true;
+    QList<QString> kategoriler;
+    QSqlQuery query;
+    if (query.exec("SELECT kategori_adi FROM kategoriler")) {
+        while (query.next()) {
+            QString kategoriAdi = query.value(0).toString();
+            kategoriler << kategoriAdi;
+
+        }
+    } else {
+        qDebug() << "Sorgu çalıştırma hatası: " << query.lastError().text();
+    }
+
+    return kategoriler;
+
+}
+
+bool DataBase::veriTabaniKayitEkleStok(QString kategori_adi, QString urun_adi, QString sku_no, /*QDate eklenme_tarihi,*/ int stok_adet)
+{
+    bool result=false;
+    QSqlQuery query;
+    int kategoriId = -1;
+    query.prepare("SELECT kategori_id FROM kategoriler WHERE kategori_adi = :kategori_adi");
+    query.bindValue(":kategori_adi", kategori_adi);
+    if (query.exec() && query.next()) {
+        kategoriId = query.value(0).toInt();
+    } else {
+        qDebug() << "Kategori ID bulunamadı: " << query.lastError().text();
+    }
+
+    // Eğer kategori bulunursa, ürünü ekleyin
+    if (kategoriId != -1) {
+        query.prepare("INSERT INTO stoklar (kategori_id, urun_adi, sku_no, eklenme_tarihi, stok_adet) "
+                      "VALUES (:kategori_id, :urun_adi, :sku_no, :eklenme_tarihi, :stok_adet)");
+        query.bindValue(":kategori_id", kategoriId);
+        query.bindValue(":urun_adi", urun_adi);
+        query.bindValue(":sku_no", sku_no);
+        query.bindValue(":eklenme_tarihi", QDate::currentDate());
+        query.bindValue(":stok_adet", stok_adet);
+        result=query.exec();
+        if (!result) {
+            qDebug() << "Ürün ekleme hatası: " << query.lastError().text();
+        }
+    }
+
+    return result;
 }
 
 
