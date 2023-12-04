@@ -25,7 +25,7 @@ class EvKontrolPaneli : QObject
 public:
 
 
-    EvKontrolPaneli();
+    EvKontrolPaneli(QObject* parent = nullptr);
     ~EvKontrolPaneli();
 
     Q_INVOKABLE bool baglanAuth(QString url,QString port,QString kullaniciAdi,QString sifre);
@@ -40,6 +40,14 @@ public:
     Q_INVOKABLE bool postData(QString url,QString data);
     Q_INVOKABLE bool getData(QString url);
 
+
+    void handleApiResponse(QNetworkReply *reply);
+    void handleApiResponseAuth(QNetworkReply *reply);
+
+
+private:
+    QNetworkAccessManager *manager;
+    QNetworkAccessManager *managerAuth;
 
 };
 
