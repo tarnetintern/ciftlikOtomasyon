@@ -29,20 +29,15 @@ ApplicationWindow {
 
     property int    defaultWidthSplit: 6
     property int    defaultHeightSplit: 6
-    property int    defaultBoxNumber: 6
+    property int    defaultBoxNumber: 7
     property var    boxNames:
         ["Anomaliler","Hayvan Sorgulama",
         "Yem Yeme Süresi","Stok Takip",
-        "Hayvan Ekleme","Bluetooth"]
+        "Hayvan Ekleme","Bluetooth","Ev Kontrol Paneli"]
 
 
     property bool   isAndroid :ScreenToolsController.isAndroid
     property bool   isWindows :ScreenToolsController.isWindows
-
-    function anomalilerShow() {
-
-        showTool(qsTr("Anomaliler"), "pages/anomaliler.qml", "traktor50px")
-    }
 
 
     function qmlPageOpener(whichPage){
@@ -65,6 +60,9 @@ ApplicationWindow {
         }
         else if(whichPage==="Bluetooth"){
             showTool(qsTr("Bluetooth"), "pages/bluetooth.qml", "inek")
+        }
+        else if(whichPage==="Ev Kontrol Paneli"){
+            showTool(qsTr("Ev Kontrol Paneli"), "pages/evKontrolPaneli.qml", "inek")
         }
 
     }

@@ -101,6 +101,16 @@ Rectangle {
             Layout.fillWidth: parent
 
             model: ["..."]
+
+            onCurrentIndexChanged: {
+                urunAdiTextField.text=""
+                skuAdiTextField.text=""
+                stockAdetTextField.text=""
+                urunAdiKontrol.text="-"
+                skuAdiKontrol.text="-"
+                stokAdetKontrol.text="+"
+                onayYazisi.visible=false
+            }
         }
         Button{
             text:"YENİ"
@@ -180,12 +190,15 @@ Rectangle {
             color: "#48e40f"
             text: qsTr("Ürün Başarıyla Eklenmiştir")
             font.bold: true
-            font.pointSize: 20
+            font.pointSize: 12
             visible:false
         }
         Text {
             id: redYazisi
+            color: "#ff0004"
             text: qsTr("Ürün Eklenirken Hata Olmuştur")
+            font.bold: true
+            font.pointSize: 12
             visible:false
         }
     }

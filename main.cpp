@@ -11,6 +11,8 @@
 
 #include "bluetooth.h"
 
+#include "evKontrolPaneli.h"
+
 static QObject* screenToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
 {
     ScreenToolsController* screenToolsController = new ScreenToolsController;

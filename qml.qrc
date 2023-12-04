@@ -12,5 +12,6 @@
         <file>pages/stokTakipStoklar.qml</file>
         <file>pages/COPopupDialog.qml</file>
         <file>pages/bluetooth.qml</file>
+        <file>pages/evKontrolPaneli.qml</file>
     </qresource>
 </RCC>

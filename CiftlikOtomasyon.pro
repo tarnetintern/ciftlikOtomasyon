@@ -32,6 +32,7 @@ QT += sql
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        evkontrolpaneli.cpp \
         main.cpp\
         screenTools/ScreenToolsController.cc\
         src/COtomasyonApplication.cc\
@@ -40,6 +41,7 @@ SOURCES += \
 
 
 HEADERS +=\
+        evkontrolpaneli.h \
         screenTools/ScreenToolsController.h\
         src/COtomasyonApplication.h\
         src/bluetooth.h \
