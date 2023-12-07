@@ -15,6 +15,7 @@ Item {
     property double defaultSpacing: screen.desktopAvailableWidth/40
     property double defaultWidth: mainWindow.width
     property double defaultHeight: mainWindow.height
+    property bool tinyScreen : Screen.desktopAvailableWidth < 700
 
     property int    defaultFontPixelWidth: 20
     property int    defaultFontPixelHeight: 10

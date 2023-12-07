@@ -19,7 +19,6 @@ static QObject* screenToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
     return screenToolsController;
 }
 
-
 static QObject* databaseToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
 {
     DataBase* dataBase = new DataBase;
@@ -32,6 +31,11 @@ static QObject* bluetoothSingletonFactory(QQmlEngine*, QJSEngine*)
     return scanner;
 }
 
+static QObject* evKontrolPaneliSingletonFactory(QQmlEngine*, QJSEngine*)
+{
+    EvKontrolPaneli* evControl = new EvKontrolPaneli;
+    return evControl;
+}
 
 bool bluetooth(){
     Bluetooth scanner;
@@ -58,13 +62,14 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<ScreenToolsController> ("COtomasyon.BluetoothController",    1, 0, "BluetoothController",  bluetoothSingletonFactory);
     qmlRegisterSingletonType<ScreenToolsController> ("COtomasyon.ScreenToolsController",    1, 0, "ScreenToolsController",  screenToolsControllerSingletonFactory);
     qmlRegisterSingletonType<DataBase> ("COtomasyon.DataBase",    1, 0, "DataBase",  databaseToolsControllerSingletonFactory);
-
+    qmlRegisterSingletonType<EvKontrolPaneli> ("COtomasyon.evControl",    1, 0, "EvControl",  evKontrolPaneliSingletonFactory);
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
     engine.load(url);
 
     return app.exec();

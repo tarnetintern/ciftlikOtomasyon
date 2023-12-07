@@ -11,10 +11,12 @@ import COtomasyon.ScreenToolsController 1.0
 import COtomasyon.DataBase 1.0
 
 ApplicationWindow {
+
     id:mainWindow
+    property bool tinyScreen : Screen.desktopAvailableWidth < 700
     //1920x1080
-    width: 1920//Screen.desktopAvailableWidth
-    height: 1080//Screen.desktopAvailableHeight
+    width: tinyScreen ? Screen.desktopAvailableWidth:1920
+    height: tinyScreen ? Screen.desktopAvailableHeight:1080
     visible: true
     title: qsTr("Ciftlik Otomasyon")
 
@@ -22,10 +24,10 @@ ApplicationWindow {
     property double defaultWidth: mainWindow.width
     property double defaultHeight: mainWindow.height
 
-    property int    defaultFontPixelWidth: 20
-    property int    defaultFontPixelHeight: 10
+    property int    defaultFontPixelWidth: tinyScreen ? 10:20
+    property int    defaultFontPixelHeight: tinyScreen ? 5:10
     property int    largeFontPointSize: 30
-    property int    toolbarHeight: 30*3
+    property int    toolbarHeight: tinyScreen ? 30*3 : 30*3
 
     property int    defaultWidthSplit: 6
     property int    defaultHeightSplit: 6
@@ -34,7 +36,6 @@ ApplicationWindow {
         ["Anomaliler","Hayvan Sorgulama",
         "Yem Yeme Süresi","Stok Takip",
         "Hayvan Ekleme","Bluetooth","Ev Kontrol Paneli"]
-
 
     property bool   isAndroid :ScreenToolsController.isAndroid
     property bool   isWindows :ScreenToolsController.isWindows
@@ -71,20 +72,22 @@ ApplicationWindow {
         width: defaultWidth
         height:defaultHeight
         color: "#242227"
+
         Item {
             id: otomasyonlarAnaItem
             y:defaultFontPixelWidth
             x:defaultFontPixelWidth
 
             GridLayout{
-                columns: 4
+                columns: 2
                 columnSpacing: defaultSpacing
 
                 Repeater{
                     model: defaultBoxNumber
 
                     delegate: Rectangle{
-                        width: defaultWidth/defaultWidthSplit
+
+                        width: defaultWidth/defaultWidthSplit+defaultSpacing
                         height: defaultHeight/defaultHeightSplit
                         color: "#9a1d49"
                         Text {
@@ -96,7 +99,7 @@ ApplicationWindow {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                console.log("tıkladık")
+
                                 qmlPageOpener(boxNames[index])
                             }
                         }
@@ -166,13 +169,12 @@ ApplicationWindow {
                 }
 
                 Image {
-                    id:                     toolIcon
-                    width:                  defaultFontPixelHeight/2
-                    height:                 defaultFontPixelHeight/2
-                    fillMode:               Image.PreserveAspectFit
-                    mipmap:                 true
+                    id: toolIcon
+                    width: toolbarHeight * 0.6 // Toolbar yüksekliğinin %60'ı olarak ayarla
+                    height: toolbarHeight * 0.6 // Yüksekliği, genişliğe eşit tut
 
-
+                    fillMode: Image.PreserveAspectFit
+                    mipmap: true
                 }
 
                 Label {
@@ -213,7 +215,8 @@ ApplicationWindow {
         console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","ciftlikotomasyon.db","batuhan","admin"))
         console.log("Tabloları olusturma hayvanlar: "+DataBase.tablolariOlustur())
         //console.log("Tabloları olusturma stoklar: "+DataBase.tablolariOlusturStok())
-
+        console.log("Screen.desktopAvailableWidth"+Screen.desktopAvailableWidth)
+        console.log("Screen.desktopAvailableHeight"+Screen.desktopAvailableHeight)
     }
 
 

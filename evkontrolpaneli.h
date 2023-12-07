@@ -16,14 +16,14 @@
 #include <QFile>
 #include <QUrl>
 
-
-class EvKontrolPaneli : QObject
+#include <QJsonDocument>
+#include <QJsonObject>
+class EvKontrolPaneli :public QObject
 {
 
     Q_OBJECT
 
 public:
-
 
     EvKontrolPaneli(QObject* parent = nullptr);
     ~EvKontrolPaneli();
@@ -37,17 +37,25 @@ public:
     Q_INVOKABLE bool baglantiyiKontrolEt();
     Q_INVOKABLE bool baglantiyiKontrolEtAuth();
 
-    Q_INVOKABLE bool postData(QString url,QString data);
-    Q_INVOKABLE bool getData(QString url);
+    Q_INVOKABLE bool postData(QString url,QString jsonData);
+    Q_INVOKABLE bool postDataAuth(QString url,QString jsonData,QString kullaniciAdi,QString sifre);
+    bool getData(QString url);
 
 
     void handleApiResponse(QNetworkReply *reply);
     void handleApiResponseAuth(QNetworkReply *reply);
 
+private slots:
+    void performGetRequest();  // Yeni slot
 
 private:
     QNetworkAccessManager *manager;
     QNetworkAccessManager *managerAuth;
+    QTimer *timer;             // QTimer nesnesi
+    QString requestUrl="http://77.245.158.70:7171/todo";        // GET isteği yapılacak URL
+
+signals:
+    void apiResponseReceived(QString response,int statusCode);
 
 };
 
