@@ -13,5 +13,6 @@
         <file>pages/COPopupDialog.qml</file>
         <file>pages/bluetooth.qml</file>
         <file>pages/evKontrolPaneli.qml</file>
+        <file>pages/ayarlarSayfasi.qml</file>
     </qresource>
 </RCC>

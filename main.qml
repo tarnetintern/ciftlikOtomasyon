@@ -31,11 +31,12 @@ ApplicationWindow {
 
     property int    defaultWidthSplit: 6
     property int    defaultHeightSplit: 6
-    property int    defaultBoxNumber: 7
+    property int    defaultBoxNumber: 8
     property var    boxNames:
         ["Anomaliler","Hayvan Sorgulama",
         "Yem Yeme Süresi","Stok Takip",
-        "Hayvan Ekleme","Bluetooth","Ev Kontrol Paneli"]
+        "Hayvan Ekleme","Bluetooth","Ev Kontrol Paneli",
+        "Ayarlar"]
 
     property bool   isAndroid :ScreenToolsController.isAndroid
     property bool   isWindows :ScreenToolsController.isWindows
@@ -64,6 +65,9 @@ ApplicationWindow {
         }
         else if(whichPage==="Ev Kontrol Paneli"){
             showTool(qsTr("Ev Kontrol Paneli"), "pages/evKontrolPaneli.qml", "inek")
+        }
+        else if(whichPage==="Ayarlar"){
+            showTool(qsTr("Ayarlar"), "pages/ayarlarSayfasi.qml", "inek")
         }
 
     }

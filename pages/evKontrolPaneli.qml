@@ -12,8 +12,8 @@ Item {
     property double defaultWidth: mainWindow.width
     property double defaultHeight: mainWindow.height
     property bool tinyScreen : Screen.desktopAvailableWidth < 700
-    property string username: "username"
-    property string password: "pass"
+    property string username: "batuhan"
+    property string password: "ObpcDpBMqoPG4PJq458Ekq"
 
 
     property int    defaultFontPixelWidth: tinyScreen ? 10:20

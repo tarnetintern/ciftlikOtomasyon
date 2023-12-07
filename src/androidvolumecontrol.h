@@ -1,7 +1,7 @@
 #ifndef ANDROIDVOLUMECONTROL_H
 #define ANDROIDVOLUMECONTROL_H
 
-
+#ifdef Q_OS_ANDROID
 #include <QtAndroid>
 
 #include <QAndroidJniObject>
@@ -38,5 +38,5 @@ public:
     }
 
 };
-
+#endif // Q_OS_ANDROID
 #endif // ANDROIDVOLUMECONTROL_H

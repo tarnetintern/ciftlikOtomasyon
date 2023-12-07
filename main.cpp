@@ -13,6 +13,8 @@
 
 #include "evKontrolPaneli.h"
 
+#include "ayarlarsayfasi.h"
+
 static QObject* screenToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
 {
     ScreenToolsController* screenToolsController = new ScreenToolsController;
@@ -35,6 +37,12 @@ static QObject* evKontrolPaneliSingletonFactory(QQmlEngine*, QJSEngine*)
 {
     EvKontrolPaneli* evControl = new EvKontrolPaneli;
     return evControl;
+}
+
+static QObject* AyarlarToolsControllerSingletonFactory(QQmlEngine*, QJSEngine*)
+{
+    ayarlarSayfasi* ayarlar = new ayarlarSayfasi;
+    return ayarlar;
 }
 
 bool bluetooth(){
@@ -63,6 +71,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<ScreenToolsController> ("COtomasyon.ScreenToolsController",    1, 0, "ScreenToolsController",  screenToolsControllerSingletonFactory);
     qmlRegisterSingletonType<DataBase> ("COtomasyon.DataBase",    1, 0, "DataBase",  databaseToolsControllerSingletonFactory);
     qmlRegisterSingletonType<EvKontrolPaneli> ("COtomasyon.evControl",    1, 0, "EvControl",  evKontrolPaneliSingletonFactory);
+    qmlRegisterSingletonType<EvKontrolPaneli> ("COtomasyon.ayarlar",    1, 0, "ayarlar",  AyarlarToolsControllerSingletonFactory);
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

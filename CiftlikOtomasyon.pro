@@ -52,6 +52,7 @@ SOURCES += \
         screenTools/ScreenToolsController.cc\
         src/COtomasyonApplication.cc\
         src/androidvolumecontrol.cpp \
+        src/ayarlarsayfasi.cpp \
         src/bluetooth.cpp \
         src/dataBase.cc
 
@@ -61,6 +62,7 @@ HEADERS +=\
         screenTools/ScreenToolsController.h\
         src/COtomasyonApplication.h\
         src/androidvolumecontrol.h \
+        src/ayarlarsayfasi.h \
         src/bluetooth.h \
         src/dataBase.h
 
@@ -84,3 +86,4 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
