@@ -7,14 +7,19 @@ import QtQuick.Layouts              1.11
 import QtQuick.Window 2.15
 import COtomasyon.ScreenToolsController 1.0
 
+import COtomasyon.Ayarlar 1.0
+
 Item {
     property double defaultSpacing: screen.desktopAvailableWidth/40
     property double defaultWidth: mainWindow.width
     property double defaultHeight: mainWindow.height
     property bool tinyScreen : Screen.desktopAvailableWidth < 700
-    property string username: "batuhan"
-    property string password: "ObpcDpBMqoPG4PJq458Ekq"
+    property var verilerListesi:Ayarlar.ayarlarSayfasiVerileriGetir()
+    property bool verilerListesiHazir:verilerListesi.length>0
 
+    property string apiUrl: verilerListesiHazir ? verilerListesi[0]:""
+    property string username: verilerListesiHazir ? verilerListesi[1]:""
+    property string password: verilerListesiHazir ? verilerListesi[2]:""
 
     property int    defaultFontPixelWidth: tinyScreen ? 10:20
     property int    defaultFontPixelHeight: tinyScreen ? 5:10
@@ -69,7 +74,7 @@ Item {
                         Button {
                             text: "aç"
                             onClicked: {
-                                var url = "http://77.245.158.70:7171/webhook";
+                                var url = apiUrl+"webhook";
                                 var json = JSON.stringify({ [model.name]: "1" });
                                 //EvControl.postData(url, json)
                                 EvControl.postDataAuth(url,json,username,password)
@@ -79,7 +84,7 @@ Item {
                         Button {
                             text: "kapat"
                             onClicked: {
-                                var url = "http://77.245.158.70:7171/webhook";
+                                var url = apiUrl+"webhook";
                                 var json = JSON.stringify({ [model.name]: "0" });
                                 //EvControl.postData(url, json)
                                 EvControl.postDataAuth(url,json,username,password)
@@ -113,9 +118,19 @@ Item {
             }
         }
     }
+
     Component.onCompleted: {
         //EvControl.baglan("","")
+
     }
+    focus: true  // Odağı etkinleştirir
+
+    Keys.onBackPressed: {
+        console.log("Geri tuşuna basıldı");
+        // Geri tuşuna basıldığında yapılacak işlemler
+    }
+
+
 
 }
 

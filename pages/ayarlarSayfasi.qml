@@ -12,21 +12,19 @@ import COtomasyon.ScreenToolsController 1.0
 
 import COtomasyon.DataBase 1.0
 
+import COtomasyon.Ayarlar 1.0
+
 Item {
     property double defaultSpacing: screen.desktopAvailableWidth/40
     property double defaultWidth: mainWindow.width
     property double defaultHeight: mainWindow.height
     property bool tinyScreen : Screen.desktopAvailableWidth < 700
 
-    property int    defaultFontPixelWidth: 20
-    property int    defaultFontPixelHeight: 10
+    property int    defaultFontPixelWidth: tinyScreen ? 10:20
+    property int    defaultFontPixelHeight: tinyScreen ? 5:10
     property int    largeFontPointSize: 30
+    property var verilerListesi:[]
 
-    property bool veriEklemeBasariliMi: false
-    property bool ilkAcilisVisible: false
-
-    property int olum_tarihiV_sayi: 0
-    property int dogum_tarihiV_sayi: 0
 
     GridLayout{
         columns: 2
@@ -63,8 +61,24 @@ Item {
         Button{
             text: "Kaydet"
             onClicked: {
+                Ayarlar.ayarlarSayfasiVerileriKaydet(defaultApiUrl.text,defaultApiUserName.text,defaultApiPassword.text)
                 console.log("kaydedildi")
+                onayYazisi.text="Kaydedildi"
             }
+        }
+        Text {
+            id: onayYazisi
+            color: "#61ff05"
+            text: qsTr("")
+            font.pointSize: 24
+
+        }
+
+        Component.onCompleted: {
+            verilerListesi=Ayarlar.ayarlarSayfasiVerileriGetir()
+            defaultApiUrl.text=verilerListesi[0]
+            defaultApiUserName.text=verilerListesi[1]
+            defaultApiPassword.text=verilerListesi[2]
         }
 
     }

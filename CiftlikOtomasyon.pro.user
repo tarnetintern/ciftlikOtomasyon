@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 11.0.3, 2023-12-07T14:20:43. -->
+<!-- Written by QtCreator 11.0.3, 2023-12-12T19:12:26. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -120,8 +120,8 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidPackageInstallationStep</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.3">
-      <value type="QString" key="BuildTargetSdk">android-31</value>
-      <value type="QString" key="BuildToolsVersion">31.0.0</value>
+      <value type="QString" key="BuildTargetSdk">android-25</value>
+      <value type="QString" key="BuildToolsVersion">28.0.3</value>
       <value type="QString" key="KeystoreLocation">C:/Users/Hp/Desktop/android_release.keystore</value>
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Build Android APK</value>
@@ -472,7 +472,6 @@
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/Hp/Desktop/ders/c++/build-CiftlikOtomasyon-Desktop_Qt_5_15_2_MSVC2019_64bit-Debug</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

@@ -28,6 +28,7 @@ public:
     ~ayarlarSayfasi();
 
     Q_INVOKABLE void ayarlarSayfasiVerileriKaydet(QString defaultApiUrl,QString defaultApiUserName,QString defaultApiPassword);
+    Q_INVOKABLE QList<QString> ayarlarSayfasiVerileriGetir();
 
     QSettings settings;
 };

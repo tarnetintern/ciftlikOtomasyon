@@ -64,10 +64,10 @@ ApplicationWindow {
             showTool(qsTr("Bluetooth"), "pages/bluetooth.qml", "inek")
         }
         else if(whichPage==="Ev Kontrol Paneli"){
-            showTool(qsTr("Ev Kontrol Paneli"), "pages/evKontrolPaneli.qml", "inek")
+            showTool(qsTr("Ev Kontrol Paneli"), "pages/evKontrolPaneli.qml", "home")
         }
         else if(whichPage==="Ayarlar"){
-            showTool(qsTr("Ayarlar"), "pages/ayarlarSayfasi.qml", "inek")
+            showTool(qsTr("Ayarlar"), "pages/ayarlarSayfasi.qml", "settings")
         }
 
     }

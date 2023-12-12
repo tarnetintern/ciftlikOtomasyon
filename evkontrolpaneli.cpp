@@ -5,6 +5,7 @@ EvKontrolPaneli::EvKontrolPaneli(QObject *parent) : QObject(parent)
     ,manager (new QNetworkAccessManager(this))
     ,managerAuth (new QNetworkAccessManager(this))
     ,timer(new QTimer(this))
+
 {
     connect(manager, &QNetworkAccessManager::finished, this, &EvKontrolPaneli::handleApiResponse);
 

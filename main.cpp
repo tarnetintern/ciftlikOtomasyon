@@ -52,10 +52,29 @@ bool bluetooth(){
     return true;
 }
 
+//bool QCoreApplication::notify(QObject* object, QEvent* event)
+//{
+
+//#ifndef Q_OS_ANDROID
+//        if (event->type() == QEvent::KeyPress) {
+//        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+//        if (keyEvent->key() == Qt::Key_Back)
+//        {
+//            qDebug() << "back key got pressed!";
+//            keyEvent->accept();
+//            return true;
+//        }
+//    }
+//#endif // Q_OS_ANDROID
+//    return true;
+
+//}
 
 int main(int argc, char *argv[])
 {
 //    static const char* ciftlikOtomasyonController  = "COtomasyon.Controllers";
+    QCoreApplication::setOrganizationName("BTHN");
+    QCoreApplication::setApplicationName("CiftlikOtomasyon");
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -71,7 +90,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<ScreenToolsController> ("COtomasyon.ScreenToolsController",    1, 0, "ScreenToolsController",  screenToolsControllerSingletonFactory);
     qmlRegisterSingletonType<DataBase> ("COtomasyon.DataBase",    1, 0, "DataBase",  databaseToolsControllerSingletonFactory);
     qmlRegisterSingletonType<EvKontrolPaneli> ("COtomasyon.evControl",    1, 0, "EvControl",  evKontrolPaneliSingletonFactory);
-    qmlRegisterSingletonType<EvKontrolPaneli> ("COtomasyon.ayarlar",    1, 0, "ayarlar",  AyarlarToolsControllerSingletonFactory);
+    qmlRegisterSingletonType<EvKontrolPaneli> ("COtomasyon.Ayarlar",    1, 0, "Ayarlar",  AyarlarToolsControllerSingletonFactory);
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

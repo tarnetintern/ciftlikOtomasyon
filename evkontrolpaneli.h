@@ -18,6 +18,7 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
+
 class EvKontrolPaneli :public QObject
 {
 
@@ -40,6 +41,8 @@ public:
     Q_INVOKABLE bool postData(QString url,QString jsonData);
     Q_INVOKABLE bool postDataAuth(QString url,QString jsonData,QString kullaniciAdi,QString sifre);
     bool getData(QString url);
+
+
 
 
     void handleApiResponse(QNetworkReply *reply);
