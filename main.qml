@@ -31,12 +31,12 @@ ApplicationWindow {
 
     property int    defaultWidthSplit: 6
     property int    defaultHeightSplit: 6
-    property int    defaultBoxNumber: 8
+    property int    defaultBoxNumber: 9
     property var    boxNames:
         ["Anomaliler","Hayvan Sorgulama",
         "Yem Yeme Süresi","Stok Takip",
         "Hayvan Ekleme","Bluetooth","Ev Kontrol Paneli",
-        "Ayarlar"]
+        "Ayarlar","Harita"]
 
     property bool   isAndroid :ScreenToolsController.isAndroid
     property bool   isWindows :ScreenToolsController.isWindows
@@ -215,12 +215,14 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        console.log("yuklendi")
-        console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local","ciftlikotomasyon.db","batuhan","admin"))
+        //console.log("yuklendi")
+        console.log("Veri tabanı olusturma: "+DataBase.veriTabaniniOlustur("local",
+                                                                           "ciftlikotomasyon.db",
+                                                                           "batuhan","admin"))
         console.log("Tabloları olusturma hayvanlar: "+DataBase.tablolariOlustur())
         //console.log("Tabloları olusturma stoklar: "+DataBase.tablolariOlusturStok())
-        console.log("Screen.desktopAvailableWidth"+Screen.desktopAvailableWidth)
-        console.log("Screen.desktopAvailableHeight"+Screen.desktopAvailableHeight)
+        //console.log("Screen.desktopAvailableWidth"+Screen.desktopAvailableWidth)
+        //console.log("Screen.desktopAvailableHeight"+Screen.desktopAvailableHeight)
     }
 
 

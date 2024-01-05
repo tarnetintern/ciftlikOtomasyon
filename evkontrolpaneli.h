@@ -40,25 +40,24 @@ public:
 
     Q_INVOKABLE bool postData(QString url,QString jsonData);
     Q_INVOKABLE bool postDataAuth(QString url,QString jsonData,QString kullaniciAdi,QString sifre);
-    bool getData(QString url);
+    bool getData(QString url,QString kullaniciAdi,QString sifre);
 
-
-
+    Q_INVOKABLE void performGetRequest(QString url,QString kullaniciAdi,QString sifre);
+    void handleApiResponseGet(QNetworkReply *reply);
 
     void handleApiResponse(QNetworkReply *reply);
     void handleApiResponseAuth(QNetworkReply *reply);
 
-private slots:
-    void performGetRequest();  // Yeni slot
-
 private:
     QNetworkAccessManager *manager;
+    QNetworkAccessManager *managerGet;
     QNetworkAccessManager *managerAuth;
     QTimer *timer;             // QTimer nesnesi
     QString requestUrl="http://77.245.158.70:7171/todo";        // GET isteği yapılacak URL
 
 signals:
     void apiResponseReceived(QString response,int statusCode);
+    void apiResponseReceivedGet(QString response,int statusCode);
 
 };
 

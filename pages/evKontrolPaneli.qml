@@ -103,7 +103,6 @@ Item {
                     Connections {
                         target: EvControl
                         onApiResponseReceived: {
-
                             if (statusCode===200) {
                                 //console.log(JSON.parse(response)["data"][model.name])
                                 if (JSON.parse(response)["data"][model.name] === "1")
@@ -111,26 +110,39 @@ Item {
                                 else if (JSON.parse(response)["data"][model.name] === "0")
                                     sonucYazisi.text = "Kapalı"
                             }
+                        }
+                        onApiResponseReceivedGet: {
+                            //console.log(response)
+
+                            if (statusCode===200) {
+                                if (JSON.parse(response)[model.name] === "1")
+                                    sonucYazisi.text = "Açık"
+                                else if (JSON.parse(response)[model.name] === "0")
+                                    sonucYazisi.text = "Kapalı"
+                            }
 
                         }
+
+
                     }
                 }
             }
         }
     }
 
-    Component.onCompleted: {
-        //EvControl.baglan("","")
 
-    }
     focus: true  // Odağı etkinleştirir
 
-    Keys.onBackPressed: {
-        console.log("Geri tuşuna basıldı");
-        // Geri tuşuna basıldığında yapılacak işlemler
+//    Keys.onBackPressed: {
+//        console.log("Geri tuşuna basıldı");
+//        // Geri tuşuna basıldığında yapılacak işlemler
+//    }
+
+    Component.onCompleted: {
+        var url = apiUrl+"todo";
+        EvControl.performGetRequest(url,username,password)
+
     }
-
-
 
 }
 
